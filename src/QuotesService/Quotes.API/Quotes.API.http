@@ -1,0 +1,6 @@
+@Quotes.API_HostAddress = http://localhost:5249
+
+GET {{Quotes.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
