@@ -1,0 +1,26 @@
+#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+USER app
+WORKDIR /app
+
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["src/AuthenticationService/Authentication.API/Authentication.API.csproj", "src/AuthenticationService/Authentication.API/"]
+COPY ["src/AuthenticationService/Authentication.Persistance/Authentication.Persistance.csproj", "src/AuthenticationService/Authentication.Persistance/"]
+COPY ["src/AuthenticationService/Authentication.Core/Authentication.Core.csproj", "src/AuthenticationService/Authentication.Core/"]
+COPY ["src/AuthenticationService/Authentication.Application/Authentication.Application.csproj", "src/AuthenticationService/Authentication.Application/"]
+RUN dotnet restore "./src/AuthenticationService/Authentication.API/./Authentication.API.csproj"
+COPY . .
+WORKDIR "/src/src/AuthenticationService/Authentication.API"
+RUN dotnet build "./Authentication.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./Authentication.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "Authentication.API.dll"]

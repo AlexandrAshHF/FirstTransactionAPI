@@ -1,0 +1,54 @@
+version: '3.4'
+
+services:
+  authentication.api:
+    image: ${DOCKER_REGISTRY-}authenticationapi
+    build:
+      context: .
+      dockerfile: src/AuthenticationService/Authentication.API/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+
+  notifications.api:
+    image: ${DOCKER_REGISTRY-}notificationsapi
+    build:
+      context: .
+      dockerfile: src/NotificationsService/Notifications.API/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8180
+      - ASPNETCORE_HTTPS_PORTS=8181
+    ports:
+      - "8180:8180"
+      - "8181:8181"
+
+  quotes.api:
+    image: ${DOCKER_REGISTRY-}quotesapi
+    build:
+      context: .
+      dockerfile: src/QuotesService/Quotes.API/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8280
+      - ASPNETCORE_HTTPS_PORTS=8281
+    ports:
+      - "8280:8280"
+      - "8281:8281"
+
+  transactions.api:
+    image: ${DOCKER_REGISTRY-}transactionsapi
+    build: 
+      context: .
+      dockerfile: src/TransactionsService/Transactions.API/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8380
+      - ASPNETCORE_HTTPS_PORTS=8381
+    ports:
+      - "8380:8380"
+      - "8381:8381"
