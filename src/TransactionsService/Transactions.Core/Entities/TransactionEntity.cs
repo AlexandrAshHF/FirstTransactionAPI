@@ -4,13 +4,15 @@ namespace Transactions.Core.Entities
 {
     public class TransactionEntity
     {
-        public TransactionEntity(Guid id, Guid sednerCardId, Guid consumerCardId, 
-            decimal transferAmount, TransactionStatus status, CurrencyType currency, 
-            TransactionType type)
+        public TransactionEntity(Guid id, Guid senderCardId, CardEntity senderCard,
+            Guid consumerCardId, CardEntity consumerCard, decimal transferAmount,
+            TransactionStatus status, CurrencyType currency, TransactionType type)
         {
             Id = id;
-            SednerCardId = sednerCardId;
+            SenderCardId = senderCardId;
+            SenderCard = senderCard;
             ConsumerCardId = consumerCardId;
+            ConsumerCard = consumerCard;
             TransferAmount = transferAmount;
             Status = status;
             Currency = currency;
@@ -18,8 +20,10 @@ namespace Transactions.Core.Entities
         }
 
         public Guid Id { get; private set; }
-        public Guid SednerCardId { get; private set; }
+        public Guid SenderCardId { get; private set; }
+        public CardEntity SenderCard { get; private set; }
         public Guid ConsumerCardId { get; private set; }
+        public CardEntity ConsumerCard { get; private set; }
         public decimal TransferAmount { get; private set; }
         public TransactionStatus Status { get; private set; }
         public CurrencyType Currency { get; private set; }

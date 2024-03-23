@@ -1,4 +1,8 @@
 
+using Microsoft.EntityFrameworkCore;
+using Transactions.Persistance;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+
 namespace Transactions.API
 {
     public class Program
@@ -13,6 +17,9 @@ namespace Transactions.API
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            string connectionString = builder.Configuration.GetConnectionString("LocalConnection");
+            builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
 
             var app = builder.Build();
 
