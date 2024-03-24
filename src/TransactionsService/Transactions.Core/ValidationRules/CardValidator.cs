@@ -3,10 +3,10 @@ using Transactions.Core.Entities;
 
 namespace Transactions.Core.ValidationRules
 {
-    internal class CardValidator : AbstractValidator<CardEntity>
+    public class CardValidator : AbstractValidator<CardEntity>
     {
-        public CardValidator() 
-        { 
+        public CardValidator()
+        {
             RuleFor(x => x.Id).NotEmpty()
                 .When(card => card.Id != Guid.Empty);
 
@@ -15,10 +15,10 @@ namespace Transactions.Core.ValidationRules
                 .WithMessage("Incorrect code format")
                 .WithName(nameof(CardEntity.AuthenticityCode));
 
-            RuleFor(x => x.Currencies).NotEmpty()
+            RuleFor(x => x.CurrencyAccounts).NotEmpty()
                 .WithMessage("There must be at least one currency")
-                .WithName(nameof(CardEntity.Currencies));
-            
+                .WithName(nameof(CardEntity.CurrencyAccounts));
+
             RuleFor(x => x.BankName).NotEmpty()
                 .WithMessage("Property bank name cannot be empty")
                 .WithName(nameof(CardEntity.BankName));
@@ -27,10 +27,6 @@ namespace Transactions.Core.ValidationRules
                 .When(card => card.Validity > DateOnly.FromDateTime(DateTime.UtcNow))
                 .WithMessage("The card's expiration date can only be in the future tense")
                 .WithName(nameof(CardEntity.Validity));
-
-            RuleFor(x => x.Money).GreaterThan(0.0M)
-                .WithMessage("The amount in the account cannot be negative")
-                .WithName(nameof(CardEntity.Money));
         }
     }
 }

@@ -1,7 +1,5 @@
-
 using Microsoft.EntityFrameworkCore;
 using Transactions.Persistance;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Transactions.API
 {

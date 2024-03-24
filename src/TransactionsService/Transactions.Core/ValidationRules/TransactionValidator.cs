@@ -3,9 +3,9 @@ using Transactions.Core.Entities;
 
 namespace Transactions.Core.ValidationRules
 {
-    internal class TransactionValidator : AbstractValidator<TransactionEntity>
+    public class TransactionValidator : AbstractValidator<TransactionEntity>
     {
-        public TransactionValidator() 
+        public TransactionValidator()
         {
             RuleFor(x => x.SenderCardId).NotEmpty()
                 .NotNull()

@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Transactions.Persistance\Transactions.Persistance.csproj" />
+    <ProjectReference Include="..\Transactions.Application\Transactions.Application.csproj" />
   </ItemGroup>
 
 </Project>
