@@ -4,6 +4,7 @@ namespace Transactions.Application.Contracts.Requests
 {
     public class CreateCardRequest
     {
+        public Guid UserId { get; set; }
         public string Number { get; set; }
         public List<Tuple<CurrencyType, decimal>> BalanceAccounts { get; set; }
         public string HolderName { get; set; }

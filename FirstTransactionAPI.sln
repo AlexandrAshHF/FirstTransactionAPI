@@ -38,6 +38,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transactions.Core", "src\TransactionsService\Transactions.Core\Transactions.Core.csproj", "{DB7B1C9E-D460-4F70-B559-55B5D22E76AD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transactions.Application", "src\TransactionsService\Transactions.Application\Transactions.Application.csproj", "{28AA8E3D-56C0-4C19-952B-CA1EC2A1E724}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DB7B1C9E-D460-4F70-B559-55B5D22E76AD} = {DB7B1C9E-D460-4F70-B559-55B5D22E76AD}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transactions.Persistance", "src\TransactionsService\Transactions.Persistance\Transactions.Persistance.csproj", "{4C0092D1-3396-4382-AF32-957ED26F790B}"
 EndProject
@@ -74,6 +77,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authentication.UnitTest", "src\AuthenticationService\Authentication.UnitTest\Authentication.UnitTest.csproj", "{E9C52D7E-9338-4C69-B6FC-A0BBD3300BFF}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{4C5BC11A-0981-448D-A808-55219B57A571}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Core", "src\Shared\Shared.Core\Shared.Core.csproj", "{418BE1E5-6D7B-4DB8-8B49-4C801D3F70E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -165,6 +170,10 @@ Global
 		{4C5BC11A-0981-448D-A808-55219B57A571}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C5BC11A-0981-448D-A808-55219B57A571}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C5BC11A-0981-448D-A808-55219B57A571}.Release|Any CPU.Build.0 = Release|Any CPU
+		{418BE1E5-6D7B-4DB8-8B49-4C801D3F70E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{418BE1E5-6D7B-4DB8-8B49-4C801D3F70E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{418BE1E5-6D7B-4DB8-8B49-4C801D3F70E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{418BE1E5-6D7B-4DB8-8B49-4C801D3F70E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -190,6 +199,7 @@ Global
 		{D67BB966-1668-44BD-A91B-E6EA0172739D} = {7C320B1B-5916-4904-A9AC-3384EFD3CA3B}
 		{A614AB21-D501-46A3-978C-9D524400F3B5} = {7C320B1B-5916-4904-A9AC-3384EFD3CA3B}
 		{E9C52D7E-9338-4C69-B6FC-A0BBD3300BFF} = {7C320B1B-5916-4904-A9AC-3384EFD3CA3B}
+		{418BE1E5-6D7B-4DB8-8B49-4C801D3F70E6} = {FBB1297B-F038-4F38-BB28-39BBA35DA65A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E75A5E1F-3B70-4E17-ABBC-0755165113CD}
