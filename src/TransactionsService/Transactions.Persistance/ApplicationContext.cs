@@ -8,6 +8,7 @@ namespace Transactions.Persistance
     {
         public DbSet<CardEntity> Cards { get; set; }
         public DbSet<TransactionEntity> Transactions { get; set; }
+        public DbSet<CurrencyAccount> CurrencyAccounts { get; set; }
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
         : base(options)
         {
@@ -19,6 +20,7 @@ namespace Transactions.Persistance
 
             modelBuilder.ApplyConfiguration(new CardConfiguration());
             modelBuilder.ApplyConfiguration(new TransactionConfiguration());
+            modelBuilder.ApplyConfiguration(new CurrencyAccountConfiguration());
         }
     }
 }

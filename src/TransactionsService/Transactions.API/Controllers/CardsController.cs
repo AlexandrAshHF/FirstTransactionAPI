@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Transactions.Application.Contracts.Requests;
 using Transactions.Application.Contracts.Responses;
+using Transactions.Application.Handlers.Cards;
 
 namespace Transactions.API.Controllers
 {
@@ -10,27 +11,35 @@ namespace Transactions.API.Controllers
     public class CardsController : ControllerBase
     {
         [HttpGet("cards-list/{userId}")]
-        public IActionResult GetCardList(Guid userId)
+        public async Task<IActionResult> GetCardList(GetUserCardsQueryHandler handler, [FromQuery]Guid userId)
         {
-            return Ok(new List<CardItemResponse>());
+            var repsonse = await handler.HandleAsync(userId);
+
+            return Ok(repsonse);
         }
 
-        [HttpGet("card/{userId}")]
-        public IActionResult GetCard(Guid userId, Guid id)
+        [HttpGet("card/{id}")]
+        public async Task<IActionResult> GetCard(GetDetailCardQueryHandler handler, [FromQuery] Guid id)
         {
-            return Ok(new FullCardResponse());
+            var result = await handler.HandleAsync(id);
+
+            return Ok(result);
         }
 
         [HttpPost("create-card")]
-        public IActionResult CreateCard(CreateCardRequest request)
+        public async Task<IActionResult> CreateCard([FromServices] CreateCardCommandHandler handler, [FromBody] CreateCardRequest request)
         {
-            return Ok(Guid.Empty);
+            var response = await handler.HandleAsync(request);
+
+            return response.IsValid ? Ok() : BadRequest(response.Errors);
         }
 
-        [HttpDelete("delete-card")]
-        public IActionResult DeleteCard(Guid id)
+        [HttpDelete("delete-card/{id}")]
+        public async Task<IActionResult> DeleteCard(DeleteCardCommandHandler handler, [FromQuery]Guid id)
         {
-            return Ok(Guid.Empty);
+            var response = await handler.HandleAsync(id);
+
+            return Ok(response);
         }
     }
 }

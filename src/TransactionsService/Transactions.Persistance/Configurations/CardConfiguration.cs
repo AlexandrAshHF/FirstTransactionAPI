@@ -8,14 +8,22 @@ namespace Transactions.Persistance.Configurations
     {
         public void Configure(EntityTypeBuilder<CardEntity> builder)
         {
-            builder.HasMany(x => x.Transactions)
+            builder.HasMany(x => x.SentTransactions)
                 .WithOne(x => x.SenderCard)
-                .HasForeignKey(x => x.SenderCardId);
+                .HasForeignKey(x => x.SenderCardId)
+                .Metadata.PrincipalToDependent?
+                .SetPropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
 
-            builder.HasMany(c => c.Transactions)
+            builder.HasMany(c => c.ReceivedTransactions)
                 .WithOne(t => t.ConsumerCard)
                 .HasForeignKey(t => t.ConsumerCardId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Restrict)
+                .Metadata.PrincipalToDependent?
+                .SetPropertyAccessMode(PropertyAccessMode.FieldDuringConstruction);
+
+            builder.HasMany(x => x.CurrencyAccounts)
+                .WithOne(x => x.Card)
+                .HasForeignKey(x => x.CardId);
         }
     }
 }

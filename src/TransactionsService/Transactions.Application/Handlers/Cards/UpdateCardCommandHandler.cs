@@ -25,7 +25,7 @@ namespace Transactions.Application.Handlers.Cards
                 return new ValidationResult();
 
             var card = new CardEntity(currentCard.Id, currentCard.HolderName, currentCard.BankName, currentCard.Number, currentCard.AuthenticityCode,
-                currentCard.Validity, request.BalanceAccounts, currentCard.PaymentNetwrok, currentCard.UserId, null);
+                currentCard.Validity, request.BalanceAccounts, currentCard.PaymentNetwrok, currentCard.UserId);
 
             ValidationResult result = (await _validator.ValidateAsync(card)) ?? throw new NullReferenceException($"Validator {_validator} returned null");
 

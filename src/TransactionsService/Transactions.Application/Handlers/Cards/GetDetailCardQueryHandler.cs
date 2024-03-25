@@ -1,5 +1,7 @@
-﻿using Shared.Core.Abstractions;
+﻿using Microsoft.EntityFrameworkCore;
+using Shared.Core.Abstractions;
 using Transactions.Application.Contracts.Responses;
+using Transactions.Core.Enums;
 using Transactions.Persistance;
 
 namespace Transactions.Application.Handlers.Cards
@@ -13,7 +15,11 @@ namespace Transactions.Application.Handlers.Cards
         }
         public async Task<FullCardResponse> HandleAsync(Guid request)
         {
-            var card = await _context.Cards.FindAsync(request);
+            var card = await Task.Run(async () => await _context.Cards
+                .AsNoTracking()
+                .Include(x => x.CurrencyAccounts)
+                .Where(x => x.Id == request)
+                .FirstAsync());
 
             if (card == null)
                 return new FullCardResponse();
@@ -21,7 +27,11 @@ namespace Transactions.Application.Handlers.Cards
             var response = new FullCardResponse
             {
                 Id = card.Id,
-                BalanceAccounts = card.CurrencyAccounts,
+
+                BalanceAccounts = card.CurrencyAccounts
+                .Select(x => new Tuple<CurrencyType, decimal>(x.Currency, x.Balance))
+                .ToList(),
+
                 Number = card.Number,
                 ValidityData = card.Validity,
                 BankName = card.BankName,

@@ -9,11 +9,11 @@ namespace Transactions.Persistance.Configurations
         public void Configure(EntityTypeBuilder<TransactionEntity> builder)
         {
             builder.HasOne(x => x.SenderCard)
-                .WithMany(x => x.Transactions)
+                .WithMany(x => x.SentTransactions)
                 .HasForeignKey(x => x.SenderCardId);
 
             builder.HasOne(x => x.ConsumerCard)
-                .WithMany(x => x.Transactions)
+                .WithMany(x => x.ReceivedTransactions)
                 .HasForeignKey(x => x.ConsumerCardId)
                 .OnDelete(DeleteBehavior.Restrict);
         }

@@ -22,7 +22,7 @@ namespace Transactions.Application.Handlers.Cards
             string cvv = random.Next(100, 999).ToString();
 
             var card = new CardEntity(Guid.NewGuid(), request.HolderName, request.BankName, request.Number, cvv,
-                request.ValidityData, request.BalanceAccounts, request.Network, request.UserId, new List<TransactionEntity>());
+                DateOnly.Parse(request.ValidityData), request.BalanceAccounts, request.Network, request.UserId, new List<TransactionEntity>(), new List<TransactionEntity>());
 
             var result = _validator.Validate(card);
 

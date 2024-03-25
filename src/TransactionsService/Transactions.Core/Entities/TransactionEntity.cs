@@ -18,15 +18,28 @@ namespace Transactions.Core.Entities
             Currency = currency;
             Type = type;
         }
-
-        public Guid Id { get; private set; }
-        public Guid SenderCardId { get; private set; }
-        public CardEntity SenderCard { get; private set; }
-        public Guid ConsumerCardId { get; private set; }
+        public TransactionEntity()
+        {
+            SenderCard = new CardEntity();
+            ConsumerCard = new CardEntity();
+        }
+        public Guid Id { get; private set; } 
+            = Guid.Empty;
+        public Guid SenderCardId { get; private set; } 
+            = Guid.Empty;
+        public CardEntity SenderCard { get; private set; } = 
+            new CardEntity();
+        public Guid ConsumerCardId { get; private set; } 
+            = Guid.Empty;
         public CardEntity ConsumerCard { get; private set; }
-        public decimal TransferAmount { get; private set; }
-        public TransactionStatus Status { get; private set; }
+            = new CardEntity();
+        public decimal TransferAmount { get; private set; } 
+            = decimal.Zero;
+        public TransactionStatus Status { get; private set; } 
+            = TransactionStatus.None;
         public CurrencyType Currency { get; private set; }
-        public TransactionType Type { get; private set; }
+            = CurrencyType.None;
+        public TransactionType Type { get; private set; } 
+            = TransactionType.None;
     }
 }
