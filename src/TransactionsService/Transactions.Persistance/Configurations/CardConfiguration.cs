@@ -8,6 +8,11 @@ namespace Transactions.Persistance.Configurations
     {
         public void Configure(EntityTypeBuilder<CardEntity> builder)
         {
+            builder.HasKey(x => x.Id);
+
+            builder.HasIndex(x => x.Number)
+                 .IsUnique();
+
             builder.HasMany(x => x.SentTransactions)
                 .WithOne(x => x.SenderCard)
                 .HasForeignKey(x => x.SenderCardId)

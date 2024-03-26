@@ -11,8 +11,4 @@
     <ProjectReference Include="..\Transactions.Persistance\Transactions.Persistance.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Handlers\Transactions\" />
-  </ItemGroup>
-
 </Project>

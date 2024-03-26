@@ -34,6 +34,15 @@ namespace Transactions.API.Controllers
             return response.IsValid ? Ok() : BadRequest(response.Errors);
         }
 
+        [HttpPut("refill-card/{id}")]
+        public async Task<IActionResult> RefillCard([FromServices] UpdateCardCommandHandler handler,
+            [FromQuery] Guid id, [FromBody] RefillCardRequest request)
+        {
+            var result = await handler.HandleAsync(request);
+
+            return result.IsValid ? Ok() : BadRequest(result.Errors);
+        }
+
         [HttpDelete("delete-card/{id}")]
         public async Task<IActionResult> DeleteCard(DeleteCardCommandHandler handler, [FromQuery]Guid id)
         {
