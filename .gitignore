@@ -20,4 +20,4 @@ src/client/build
 **/yarn-debug.log*
 **/yarn-error.log*
 
-**/package-lock.json
+src/client/package-lock.json
