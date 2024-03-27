@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Transactions.Application.Contracts.Requests;
-using Transactions.Application.Contracts.Responses;
 using Transactions.Application.Handlers.Cards;
 
 namespace Transactions.API.Controllers
@@ -11,7 +10,7 @@ namespace Transactions.API.Controllers
     public class CardsController : ControllerBase
     {
         [HttpGet("cards-list/{userId}")]
-        public async Task<IActionResult> GetCardList(GetUserCardsQueryHandler handler, [FromQuery]Guid userId)
+        public async Task<IActionResult> GetCardList(GetUserCardsQueryHandler handler, [FromQuery] Guid userId)
         {
             var repsonse = await handler.HandleAsync(userId);
 
@@ -44,7 +43,7 @@ namespace Transactions.API.Controllers
         }
 
         [HttpDelete("delete-card/{id}")]
-        public async Task<IActionResult> DeleteCard(DeleteCardCommandHandler handler, [FromQuery]Guid id)
+        public async Task<IActionResult> DeleteCard(DeleteCardCommandHandler handler, [FromQuery] Guid id)
         {
             var response = await handler.HandleAsync(id);
 

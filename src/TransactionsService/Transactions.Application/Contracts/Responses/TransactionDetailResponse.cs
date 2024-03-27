@@ -23,7 +23,7 @@ namespace Transactions.Application.Contracts.Responses
             = CurrencyType.None;
         public TransactionType Type { get; set; }
             = TransactionType.None;
-        public TransactionDirect Direct { get;  set; }
+        public TransactionDirect Direct { get; set; }
             = TransactionDirect.None;
     }
 }

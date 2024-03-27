@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Quotes.Application.Contracts.Responses;
 using Quotes.Core.Abstractions;
 using Quotes.Core.Enums;
 using Quotes.Core.Models;
@@ -10,22 +11,25 @@ namespace Quotes.Application.Implementation
         private HttpClient _httpClient = new HttpClient();
         private readonly string _url = "https://api.nbrb.by/exrates/rates";
         private readonly string _partPeriodicity = "?periodicity=0";
-        public async Task<List<Currency>> GetAllCurrency()
+        public async Task<List<BankCurrencyFormat>> GetAllCurrency()
         {
             var response = await _httpClient.GetAsync(_url + _partPeriodicity);
-            var json = await response.Content.ReadAsStringAsync();
+            string json = await response.Content.ReadAsStringAsync();
 
-            List<Currency> result = new List<Currency>();
-            result = JsonConvert.DeserializeObject<List<Currency>>(json) ?? throw new NullReferenceException();
+            List<BankCurrencyFormat> result = new List<BankCurrencyFormat>();
+            result = JsonConvert.DeserializeObject<List<BankCurrencyFormat>>(json)
+                .Where(x => Enum.IsDefined(typeof(CurrencyId), x.CurrencyId))
+                .ToList()
+                ?? throw new NullReferenceException();
 
             return result;
         }
-        public async Task<Currency> GetCurrencyById(CurrencyId id)
+        public async Task<BankCurrencyFormat> GetCurrencyById(CurrencyId id)
         {
             var response = await _httpClient.GetAsync(_url + $"/{(int)id}" + _partPeriodicity);
             var json = await response.Content.ReadAsStringAsync();
 
-            Currency result = JsonConvert.DeserializeObject<Currency>(json) ?? throw new NullReferenceException();
+            BankCurrencyFormat result = JsonConvert.DeserializeObject<BankCurrencyFormat>(json) ?? throw new NullReferenceException();
 
             return result;
         }

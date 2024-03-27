@@ -9,12 +9,11 @@ namespace Quotes.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddControllers();
-
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddStackExchangeRedisCache(options => {
+            builder.Services.AddStackExchangeRedisCache(options =>
+            {
                 options.Configuration = "localhost";
                 options.InstanceName = "quotes";
             });
@@ -32,10 +31,12 @@ namespace Quotes.API
 
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
-
-
-            app.MapControllers();
+            app.MapGet("quotes/rates", async (QuotesQueryHandler handler) =>
+            {
+                var result = await handler.HandleAsync(null);
+            
+                return Results.Ok(result);
+            });
 
             app.Run();
         }

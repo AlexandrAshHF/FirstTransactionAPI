@@ -31,20 +31,20 @@ namespace Transactions.Application.Handlers.Transactions
                 response.AddRange(
                     await _context.Transactions
                     .Where(x => x.Direct == request.Direct)
-                    .Skip((request.Page*request.Number)/cardsId.Count)
+                    .Skip((request.Page * request.Number) / cardsId.Count)
                     .Include(x => x.SenderCard)
                     .Include(x => x.ConsumerCard)
                     .Where(x => x.ConsumerCardId == item || x.SenderCardId == item)
                     .Select(x => new TransactionItemResponse
-                        {
-                            Id = x.Id,
-                            SenderNumber = x.SenderCard.Number,
-                            ConsumerNumber = x.ConsumerCard.Number,
-                            Amount = x.TransferAmount,
-                            Status = x.Status,
-                            Currency = x.Currency,
-                            Type = x.Type,
-                        }).ToListAsync());
+                    {
+                        Id = x.Id,
+                        SenderNumber = x.SenderCard.Number,
+                        ConsumerNumber = x.ConsumerCard.Number,
+                        Amount = x.TransferAmount,
+                        Status = x.Status,
+                        Currency = x.Currency,
+                        Type = x.Type,
+                    }).ToListAsync());
             });
 
             return response;

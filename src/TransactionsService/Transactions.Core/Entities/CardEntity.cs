@@ -32,21 +32,21 @@ namespace Transactions.Core.Entities
             SentTransactions = new List<TransactionEntity> { };
             ReceivedTransactions = new List<TransactionEntity>();
         }
-        public Guid Id { get; private set; } 
+        public Guid Id { get; private set; }
             = Guid.Empty;
-        public string HolderName { get; private set; } 
+        public string HolderName { get; private set; }
             = string.Empty;
-        public string BankName { get; private set; } 
+        public string BankName { get; private set; }
             = string.Empty;
-        public string Number { get; private set; } 
+        public string Number { get; private set; }
             = string.Empty;
-        public string AuthenticityCode { get; private set; } 
+        public string AuthenticityCode { get; private set; }
             = string.Empty;
         public DateOnly Validity { get; private set; }
             = DateOnly.MinValue;
         public List<CurrencyAccount> CurrencyAccounts { get; private set; }
             = new List<CurrencyAccount>();
-        public PaymentNetwrok PaymentNetwrok { get; private set; } 
+        public PaymentNetwrok PaymentNetwrok { get; private set; }
             = PaymentNetwrok.None;
         public Guid UserId { get; private set; }
             = Guid.Empty;

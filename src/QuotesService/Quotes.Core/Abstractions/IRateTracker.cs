@@ -5,7 +5,7 @@ namespace Quotes.Core.Abstractions
 {
     public interface IRateTracker
     {
-        Task<List<Currency>> GetAllCurrency();
-        Task<Currency> GetCurrencyById(CurrencyId id);
+        Task<List<BankCurrencyFormat>> GetAllCurrency();
+        Task<BankCurrencyFormat> GetCurrencyById(CurrencyId id);
     }
 }

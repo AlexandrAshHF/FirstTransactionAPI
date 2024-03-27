@@ -4,11 +4,12 @@ using Quotes.Core.Abstractions;
 using Quotes.Core.Enums;
 using Quotes.Core.Models;
 using Shared.Core.Abstractions;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 
 namespace Quotes.Application.Implementation
 {
-    public class QuotesQueryHandler : IHandlerAsync<List<QuotesItemResponse>, _>
+    public class QuotesQueryHandler : IHandlerAsync<List<QuotesItemResponse>, object?>
     {
         private IDistributedCache _cache;
         private IRateTracker _rateTracker;
@@ -18,15 +19,15 @@ namespace Quotes.Application.Implementation
             _cache = cache;
             _rateTracker = rateTracker;
         }
-        public async Task<List<QuotesItemResponse>> HandleAsync(_ request)
+        public async Task<List<QuotesItemResponse>> HandleAsync(object? request)
         {
             var currenciesStr = await _cache.GetStringAsync(_keyQuotesKey);
-            List<Currency> currencies = new List<Currency>();
+            List<BankCurrencyFormat> currencies = new List<BankCurrencyFormat>();
 
             if (currenciesStr == null)
             {
                 currencies = await _rateTracker.GetAllCurrency();
-                currenciesStr = JsonSerializer.Serialize<List<Currency>>(currencies);
+                currenciesStr = JsonSerializer.Serialize<List<BankCurrencyFormat>>(currencies);
 
                 var options = new DistributedCacheEntryOptions()
                     .SetAbsoluteExpiration(new TimeSpan(12, 0, 0));
@@ -35,14 +36,14 @@ namespace Quotes.Application.Implementation
             }
 
             else
-                currencies = JsonSerializer.Deserialize<List<Currency>>(currenciesStr) ?? throw new ArgumentNullException();
+                currencies = JsonSerializer.Deserialize<List<BankCurrencyFormat>>(currenciesStr) ?? throw new ArgumentNullException();
 
             return currencies.Select(x => new QuotesItemResponse
             {
-                Id = (CurrencyId)x.Id,
-                Abbreviation = x.Abbreviation,
-                Rate = x.OfficialRate,
-                Scale = x.Scale
+                Id = (CurrencyId)x.CurrencyId,
+                Abbreviation = x.Abberviation,
+                Scale = x.Scale,
+                Rate = x.OfficalRate
             }).ToList();
         }
     }

@@ -1,5 +1,4 @@
 ﻿using FluentValidation.Results;
-using Microsoft.EntityFrameworkCore;
 using Shared.Core.Abstractions;
 using Transactions.Application.Contracts.Requests;
 using Transactions.Core.Entities;
