@@ -1,3 +1,6 @@
+using Quotes.Application.Implementation;
+using Quotes.Core.Abstractions;
+
 namespace Quotes.API
 {
     public class Program
@@ -15,6 +18,9 @@ namespace Quotes.API
                 options.Configuration = "localhost";
                 options.InstanceName = "quotes";
             });
+
+            builder.Services.AddTransient<IRateTracker, HttpRateTracker>();
+            builder.Services.AddScoped<QuotesQueryHandler>();
 
             var app = builder.Build();
 

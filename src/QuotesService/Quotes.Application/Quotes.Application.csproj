@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Shared.Core\Shared.Core.csproj" />
     <ProjectReference Include="..\Quotes.Core\Quotes.Core.csproj" />
   </ItemGroup>
 

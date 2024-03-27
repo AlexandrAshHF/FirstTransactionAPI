@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Quotes.Core.Models
 {
+    [Serializable]
     public class Currency
     {
         public Currency(int id, DateTime requestDate, int scale, string abbreviation, string name, decimal officialRate)
