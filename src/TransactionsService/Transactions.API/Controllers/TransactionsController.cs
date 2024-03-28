@@ -33,7 +33,7 @@ namespace Transactions.API.Controllers
         }
 
         [HttpPost("produce-transaction")]
-        public IActionResult CreateTransaction([FromBody] CreateTransactionRequest request)
+        public IActionResult CreateTransaction([FromBody] CardsTransactionRequest request)
         {
             return Ok(Guid.Empty);
         }

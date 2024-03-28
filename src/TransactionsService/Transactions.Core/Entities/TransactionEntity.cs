@@ -6,8 +6,7 @@ namespace Transactions.Core.Entities
     {
         public TransactionEntity(Guid id, Guid senderCardId, CardEntity senderCard,
             Guid consumerCardId, CardEntity consumerCard, decimal transferAmount,
-            TransactionStatus status, CurrencyType currency, TransactionType type
-            , TransactionDirect direct)
+            TransactionStatus status, CurrencyType currency, TransactionType type)
         {
             Id = id;
             SenderCardId = senderCardId;
@@ -18,7 +17,6 @@ namespace Transactions.Core.Entities
             Status = status;
             Currency = currency;
             Type = type;
-            Direct = direct;
         }
         public TransactionEntity()
         {
@@ -43,7 +41,5 @@ namespace Transactions.Core.Entities
             = CurrencyType.None;
         public TransactionType Type { get; private set; }
             = TransactionType.None;
-        public TransactionDirect Direct { get; private set; }
-            = TransactionDirect.None;
     }
 }

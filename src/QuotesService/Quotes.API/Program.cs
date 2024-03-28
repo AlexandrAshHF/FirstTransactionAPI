@@ -31,7 +31,7 @@ namespace Quotes.API
 
             app.UseHttpsRedirection();
 
-            app.MapGet("quotes/rates", async (QuotesQueryHandler handler) =>
+            app.MapGet("/rates", async (QuotesQueryHandler handler) =>
             {
                 var result = await handler.HandleAsync(null);
             
