@@ -1,5 +1,4 @@
-﻿using FluentValidation.Results;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Shared.Core.Abstractions;
 using Transactions.Application.Contracts.Requests;
 using Transactions.Core.Entities;
@@ -29,7 +28,7 @@ namespace Transactions.Application.Handlers.Transactions
 
             if (SecondCard == null
                 || request.Amount > FirstCard.CurrencyAccounts.First(x => x.Currency == request.Currency).Balance)
-                    return $"Incorrect data in request";
+                return $"Incorrect data in request";
 
             bool existCurrency = false;
             SecondCard.CurrencyAccounts.ForEach(item =>
@@ -43,7 +42,7 @@ namespace Transactions.Application.Handlers.Transactions
                 TransactionEntity transaction = new TransactionEntity(Guid.NewGuid(), FirstCard.Id,
                     FirstCard, SecondCard.Id, SecondCard,
                     request.Amount, TransactionStatus.Success,
-                    request.Currency, TransactionType.CardToCard);
+                    request.Currency, TransactionType.CardToCard, TransationDirect.Send, DateTime.Now);
 
                 await _context.Transactions.AddAsync(transaction);
                 await _context.SaveChangesAsync();

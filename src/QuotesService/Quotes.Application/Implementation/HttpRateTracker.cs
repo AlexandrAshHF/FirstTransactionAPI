@@ -1,8 +1,7 @@
 ﻿using Newtonsoft.Json;
-using Quotes.Application.Contracts.Responses;
 using Quotes.Core.Abstractions;
-using Quotes.Core.Enums;
 using Quotes.Core.Models;
+using Shared.Core.Enums;
 
 namespace Quotes.Application.Implementation
 {

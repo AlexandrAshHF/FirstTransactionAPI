@@ -1,4 +1,5 @@
-﻿using Transactions.Core.Enums;
+﻿using Shared.Core.Enums;
+using Transactions.Core.Enums;
 
 namespace Transactions.Application.Contracts.Requests
 {
@@ -6,7 +7,7 @@ namespace Transactions.Application.Contracts.Requests
     {
         public Guid UserId { get; set; }
         public string Number { get; set; }
-        public List<Tuple<CurrencyType, decimal>> BalanceAccounts { get; set; }
+        public List<Tuple<CurrencyId, decimal>> BalanceAccounts { get; set; }
         public string HolderName { get; set; }
         public string ValidityData { get; set; }
         public string BankName { get; set; }

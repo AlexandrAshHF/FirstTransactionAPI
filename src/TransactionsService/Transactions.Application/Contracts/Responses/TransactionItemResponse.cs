@@ -1,4 +1,5 @@
-﻿using Transactions.Core.Enums;
+﻿using Shared.Core.Enums;
+using Transactions.Core.Enums;
 
 namespace Transactions.Application.Contracts.Responses
 {
@@ -8,7 +9,7 @@ namespace Transactions.Application.Contracts.Responses
         public string SenderNumber { get; set; }
         public string ConsumerNumber { get; set; }
         public TransactionType Type { get; set; }
-        public CurrencyType Currency { get; set; }
+        public CurrencyId Currency { get; set; }
         public TransactionStatus Status { get; set; }
         public decimal Amount { get; set; }
     }

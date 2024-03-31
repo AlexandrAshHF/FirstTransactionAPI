@@ -1,3 +1,4 @@
+using Quotes.Application.gRPC;
 using Quotes.Application.Implementation;
 using Quotes.Core.Abstractions;
 
@@ -21,6 +22,8 @@ namespace Quotes.API
             builder.Services.AddTransient<IRateTracker, HttpRateTracker>();
             builder.Services.AddScoped<QuotesQueryHandler>();
 
+            builder.Services.AddGrpc();
+
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())
@@ -34,9 +37,10 @@ namespace Quotes.API
             app.MapGet("/rates", async (QuotesQueryHandler handler) =>
             {
                 var result = await handler.HandleAsync(null);
-            
+
                 return Results.Ok(result);
             });
+            app.MapGrpcService<ExchangeService>();
 
             app.Run();
         }

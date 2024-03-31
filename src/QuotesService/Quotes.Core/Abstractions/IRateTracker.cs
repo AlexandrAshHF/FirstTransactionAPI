@@ -1,5 +1,5 @@
-﻿using Quotes.Core.Enums;
-using Quotes.Core.Models;
+﻿using Quotes.Core.Models;
+using Shared.Core.Enums;
 
 namespace Quotes.Core.Abstractions
 {

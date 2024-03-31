@@ -1,4 +1,4 @@
-﻿using Quotes.Core.Enums;
+﻿using Shared.Core.Enums;
 
 namespace Quotes.Application.Contracts.Responses
 {

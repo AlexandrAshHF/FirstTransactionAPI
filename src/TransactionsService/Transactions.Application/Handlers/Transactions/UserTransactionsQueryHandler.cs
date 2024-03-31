@@ -15,37 +15,36 @@ namespace Transactions.Application.Handlers.Transactions
         }
         public async Task<List<TransactionItemResponse>> HandleAsync(GetTransactionsRequest request)
         {
-            List<TransactionItemResponse> response = new List<TransactionItemResponse>();
+            var consumerTransactions = await _context.Transactions
+                .AsNoTracking()
+                .Include(x => x.ConsumerCard)
+                .Where(x => request.UserId == x.ConsumerCard.UserId)
+                .Skip(request.Page * request.Number)
+                .Take(request.Number)
+                .ToListAsync();
 
-            List<Guid> cardsId = request.CardId == null
-                ?
-                await _context.Cards
-                .Where(x => x.UserId == request.UserId)
-                .Select(x => x.Id).ToListAsync()
-                :
-                new List<Guid>() { request.CardId ?? throw new ArgumentNullException() };
+            var senderTransactions = await _context.Transactions
+                .AsNoTracking()
+                .Include(x => x.SenderCard)
+                .Where(x => request.UserId == x.SenderCard.UserId)
+                .Skip(request.Page * request.Number)
+                .Take(request.Number)
+                .ToListAsync();
 
-
-            cardsId.ForEach(async (item) =>
-            {
-                response.AddRange(
-                    await _context.Transactions
-                    .Where(x => x.Direct == request.Direct)
-                    .Skip((request.Page * request.Number) / cardsId.Count)
-                    .Include(x => x.SenderCard)
-                    .Include(x => x.ConsumerCard)
-                    .Where(x => x.ConsumerCardId == item || x.SenderCardId == item)
-                    .Select(x => new TransactionItemResponse
-                    {
-                        Id = x.Id,
-                        SenderNumber = x.SenderCard.Number,
-                        ConsumerNumber = x.ConsumerCard.Number,
-                        Amount = x.TransferAmount,
-                        Status = x.Status,
-                        Currency = x.Currency,
-                        Type = x.Type,
-                    }).ToListAsync());
-            });
+            List<TransactionItemResponse> response = await Task.Run( () => consumerTransactions
+                .Concat(senderTransactions)
+                .OrderBy(x => x.TimeOfCreate)
+                .Take(request.Number)
+                .Select(x => new TransactionItemResponse
+                {
+                    Id = x.Id,
+                    SenderNumber = x.SenderCard.Number,
+                    ConsumerNumber = x.ConsumerCard.Number,
+                    Amount = x.TransferAmount,
+                    Status = x.Status,
+                    Currency = x.Currency,
+                    Type = x.Type,
+                }).ToList());
 
             return response;
         }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shared.Core.Abstractions;
+using Shared.Core.Enums;
 using Transactions.Application.Contracts.Responses;
-using Transactions.Core.Enums;
 using Transactions.Persistance;
 
 namespace Transactions.Application.Handlers.Cards
@@ -29,7 +29,7 @@ namespace Transactions.Application.Handlers.Cards
                 Id = card.Id,
 
                 BalanceAccounts = card.CurrencyAccounts
-                .Select(x => new Tuple<CurrencyType, decimal>(x.Currency, x.Balance))
+                .Select(x => new Tuple<CurrencyId, decimal>(x.Currency, x.Balance))
                 .ToList(),
 
                 Number = card.Number,

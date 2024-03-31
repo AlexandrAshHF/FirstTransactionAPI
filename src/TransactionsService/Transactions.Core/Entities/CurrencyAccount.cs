@@ -1,10 +1,10 @@
-﻿using Transactions.Core.Enums;
+﻿using Shared.Core.Enums;
 
 namespace Transactions.Core.Entities
 {
     public class CurrencyAccount
     {
-        public CurrencyAccount(Guid id, Guid cardId, CardEntity card, CurrencyType type, decimal balance)
+        public CurrencyAccount(Guid id, Guid cardId, CardEntity card, CurrencyId type, decimal balance)
         {
             Id = id;
             CardId = cardId;
@@ -22,8 +22,8 @@ namespace Transactions.Core.Entities
             = Guid.Empty;
         public CardEntity Card { get; private set; }
             = new CardEntity();
-        public CurrencyType Currency { get; private set; }
-            = CurrencyType.None;
+        public CurrencyId Currency { get; private set; }
+            = CurrencyId.None;
         public decimal Balance { get; private set; }
             = decimal.Zero;
     }

@@ -1,4 +1,5 @@
-﻿using Transactions.Core.Enums;
+﻿using Shared.Core.Enums;
+using Transactions.Core.Enums;
 
 namespace Transactions.Core.Entities
 {
@@ -6,7 +7,7 @@ namespace Transactions.Core.Entities
     {
         public CardEntity(Guid id, string holder, string bank,
             string number, string code, DateOnly valid,
-            List<Tuple<CurrencyType, decimal>> typeAccounts, PaymentNetwrok network, Guid user,
+            List<Tuple<CurrencyId, decimal>> typeAccounts, PaymentNetwrok network, Guid user,
             List<TransactionEntity>? sentTransactions = null,
             List<TransactionEntity>? receivedTransactions = null)
         {

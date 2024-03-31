@@ -1,4 +1,5 @@
-﻿using Transactions.Core.Entities;
+﻿using Shared.Core.Enums;
+using Transactions.Core.Entities;
 using Transactions.Core.Enums;
 
 namespace Transactions.Application.Contracts.Responses
@@ -19,11 +20,11 @@ namespace Transactions.Application.Contracts.Responses
             = decimal.Zero;
         public TransactionStatus Status { get; set; }
             = TransactionStatus.None;
-        public CurrencyType Currency { get; set; }
-            = CurrencyType.None;
+        public CurrencyId Currency { get; set; }
+            = CurrencyId.None;
         public TransactionType Type { get; set; }
             = TransactionType.None;
-        public TransactionDirect Direct { get; set; }
-            = TransactionDirect.None;
+        public TransationDirect Direct { get; set; }
+            = TransationDirect.None;
     }
 }

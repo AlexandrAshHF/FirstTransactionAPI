@@ -1,10 +1,9 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
 using Quotes.Application.Contracts.Responses;
 using Quotes.Core.Abstractions;
-using Quotes.Core.Enums;
 using Quotes.Core.Models;
 using Shared.Core.Abstractions;
-using System.Runtime.CompilerServices;
+using Shared.Core.Enums;
 using System.Text.Json;
 
 namespace Quotes.Application.Implementation

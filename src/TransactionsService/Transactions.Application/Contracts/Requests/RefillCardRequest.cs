@@ -1,10 +1,10 @@
-﻿using Transactions.Core.Enums;
+﻿using Shared.Core.Enums;
 
 namespace Transactions.Application.Contracts.Requests
 {
     public class RefillCardRequest
     {
         public Guid CardId { get; set; }
-        public List<Tuple<CurrencyType, decimal>> BalanceAccounts { get; set; }
+        public List<Tuple<CurrencyId, decimal>> BalanceAccounts { get; set; }
     }
 }
