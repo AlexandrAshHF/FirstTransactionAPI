@@ -22,6 +22,7 @@
 
 	<ItemGroup>
 		<Protobuf Include="Protos\CommunicationQT.proto" GrpcServices="Server"/>
+		<Protobuf Include="Protos\CommunicationQT.proto" GrpcServices="Client"/>
 	</ItemGroup>
 
 </Project>

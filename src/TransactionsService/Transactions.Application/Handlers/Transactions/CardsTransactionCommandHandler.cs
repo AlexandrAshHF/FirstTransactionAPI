@@ -1,5 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Grpc.Net.Client;
+using Microsoft.EntityFrameworkCore;
+using Shared.Application.Protos;
 using Shared.Core.Abstractions;
+using Shared.Core.Enums;
 using Transactions.Application.Contracts.Requests;
 using Transactions.Core.Entities;
 using Transactions.Core.Enums;
@@ -49,7 +52,23 @@ namespace Transactions.Application.Handlers.Transactions
             }
             else
             {
-                //gRPC коннект с котировками и получение скейла и рейтинга для вычислений
+                using var channel = GrpcChannel.ForAddress("");
+
+                var client = new Exchange.ExchangeClient(channel);
+                CurrencyConvertResponse response = await client.ConvertCurrenciesAsync(new CurrencyConvertRequest
+                {
+                    SenderCurrency = (int)request.Currency,
+                    ConsumerCurrency = (int)SecondCard.CurrencyAccounts[0].Currency,
+                    Amount = (double)request.Amount
+                });
+                
+                TransactionEntity transaction = new TransactionEntity(Guid.NewGuid(), FirstCard.Id,
+                    FirstCard, SecondCard.Id, SecondCard,
+                    (decimal)response.ConvartationResult, TransactionStatus.Success,
+                    (CurrencyId)response.ConvertationCurrency, TransactionType.CardToCard, TransationDirect.Send, DateTime.Now);
+
+                await _context.Transactions.AddAsync(transaction);
+                await _context.SaveChangesAsync();
             }
 
             return string.Empty;
