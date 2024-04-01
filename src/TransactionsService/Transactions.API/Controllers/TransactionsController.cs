@@ -33,9 +33,12 @@ namespace Transactions.API.Controllers
         }
 
         [HttpPost("produce-transaction")]
-        public IActionResult CreateTransaction([FromBody] CardsTransactionRequest request)
+        public async Task<IActionResult> CreateTransaction(
+            [FromServices] CardsTransactionCommandHandler handler,
+            [FromBody] CardsTransactionRequest request)
         {
-            return Ok(Guid.Empty);
+            var response = await handler.HandleAsync(request);
+            return Ok(response);
         }
     }
 }

@@ -16,7 +16,8 @@ namespace Transactions.API
             builder.Services.AddSwaggerGen();
 
             string connectionString = builder.Configuration.GetConnectionString("LocalConnection");
-            builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
+            builder.Services.AddDbContext<ApplicationContext>
+                (options => options.UseSqlServer(connectionString, opth => opth.MigrationsAssembly("Transactions.Persistance")));
 
             builder.Services.AddCardHandlers();
 

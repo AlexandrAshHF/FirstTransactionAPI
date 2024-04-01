@@ -24,4 +24,8 @@
     <ProjectReference Include="..\Quotes.Core\Quotes.Core.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		<Protobuf Include="..\..\Shared\Shared.Application\Protos\CommunicationQT.proto" GrpcServices="Server"/>
+	</ItemGroup>
+
 </Project>

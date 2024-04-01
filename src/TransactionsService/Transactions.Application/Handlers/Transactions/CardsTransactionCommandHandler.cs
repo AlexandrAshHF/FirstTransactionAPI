@@ -52,7 +52,7 @@ namespace Transactions.Application.Handlers.Transactions
             }
             else
             {
-                using var channel = GrpcChannel.ForAddress("");
+                using var channel = GrpcChannel.ForAddress("*:9000");
 
                 var client = new Exchange.ExchangeClient(channel);
                 CurrencyConvertResponse response = await client.ConvertCurrenciesAsync(new CurrencyConvertRequest
