@@ -12,22 +12,21 @@ namespace Transactions.API.Controllers
     {
 
         [HttpGet("transactions-list")]
-        public async Task<IActionResult> GetTransactions([FromServices] UserTransactionsQueryHandler handler, [FromBody] GetTransactionsRequest request)
+        public async Task<IActionResult> GetTransactions([FromServices] UserTransactionsQueryHandler handler, [FromQuery] GetTransactionsRequest request)
         {
-            var userClaims = User.Identity as ClaimsIdentity;
-            var userId = userClaims?.FindFirst("userId")?.Value ?? throw new NullReferenceException();
+            //var userClaims = User.Identity as ClaimsIdentity;
+            //var userId = userClaims?.FindFirst("userId")?.Value ?? throw new NullReferenceException();
 
-            request.UserId = new Guid(userId);
+            
 
             var result = await handler.HandleAsync(request);
 
             return Ok(result);
         }
 
-        [HttpGet("transaction-detail/{tranascionId}")]
-        public async Task<IActionResult> GetTransactionDetail(
-            [FromServices] DetailTransactionQueryHandler handler,
-            [FromQuery] Guid transactionId)
+        [HttpGet("transaction-detail/{transactionId}")]
+        public async Task<IActionResult> GetTransactionDetail([FromServices] DetailTransactionQueryHandler handler,
+            [FromRoute] Guid transactionId)
         {
             return Ok(await handler.HandleAsync(transactionId));
         }

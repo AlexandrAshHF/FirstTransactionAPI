@@ -16,7 +16,15 @@ namespace Quotes.Application.gRPC
         public override async Task<CurrencyConvertResponse> ConvertCurrencies(CurrencyConvertRequest request, ServerCallContext callContext)
         {
             var quotes = await _queryHandler.HandleAsync(null);
-            var quoteConsume = quotes.First(x => x.Id == (CurrencyId)request.ConsumerCurrency);
+            var quoteConsume = quotes.FirstOrDefault(x => x.Id == (CurrencyId)request.ConsumerCurrency) 
+                ?? new QuotesItemResponse
+                {
+                    Id = CurrencyId.BYN,
+                    Abbreviation = "BYN",
+                    Rate = 1.0m,
+                    Scale = 1,
+                };
+
             var quoteSender = quotes.FirstOrDefault(x => x.Id == (CurrencyId)request.SenderCurrency)
                 ?? new QuotesItemResponse
                 {

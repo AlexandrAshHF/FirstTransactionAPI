@@ -42,10 +42,8 @@ namespace Transactions.Application.Handlers.Transactions
 
             if (existCurrency)
             {
-                TransactionEntity transaction = new TransactionEntity(Guid.NewGuid(), FirstCard.Id,
-                    FirstCard, SecondCard.Id, SecondCard,
-                    request.Amount, TransactionStatus.Success,
-                    request.Currency, request.Currency, TransactionType.CardToCard, TransationDirect.Send, DateTime.Now);
+                TransactionEntity transaction = new TransactionEntity(Guid.NewGuid(), FirstCard.Id,FirstCard, SecondCard.Id, SecondCard,
+                    request.Amount, request.Amount, request.Currency, request.Currency, DateTime.Now);
 
                 await _context.Transactions.AddAsync(transaction);
                 await _context.SaveChangesAsync();
@@ -63,9 +61,9 @@ namespace Transactions.Application.Handlers.Transactions
                 });
                 
                 TransactionEntity transaction = new TransactionEntity(Guid.NewGuid(), FirstCard.Id,
-                    FirstCard, SecondCard.Id, SecondCard,
-                    (decimal)response.ConvartationResult, TransactionStatus.Success, request.Currency,
-                    (CurrencyId)response.ConvertationCurrency, TransactionType.CardToCard, TransationDirect.Send, DateTime.Now);
+                    FirstCard, SecondCard.Id, SecondCard, request.Amount,
+                    (decimal)response.ConvartationResult, request.Currency,
+                    (CurrencyId)response.ConvertationCurrency, DateTime.Now);
 
                 await _context.Transactions.AddAsync(transaction);
                 await _context.SaveChangesAsync();

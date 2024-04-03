@@ -16,8 +16,6 @@ namespace Transactions.Application.Handlers.Transactions
         public async Task<TransactionDetailResponse> HandleAsync(Guid request)
         {
             TransactionEntity transaction = await _context.Transactions
-                .Include(x => x.SenderCard)
-                .Include(x => x.ConsumerCard)
                 .FirstAsync();
 
             return new TransactionDetailResponse
@@ -26,12 +24,10 @@ namespace Transactions.Application.Handlers.Transactions
                 SenderCard = transaction.SenderCard,
                 ConsumerCard = transaction.ConsumerCard,
                 ConsumerCardId = transaction.ConsumerCardId,
-                Currency = transaction.CurrencySender,
+                SenderCurrency = transaction.CurrencySender,
+                ConsumerCurrency = transaction.CurrencyConsumer,
+                TransferAmount = transaction.SendAmount,
                 SenderCardId = transaction.SenderCardId,
-                Direct = transaction.Direct,
-                Status = transaction.Status,
-                TransferAmount = transaction.TransferAmount,
-                Type = transaction.Type,
             };
         }
     }

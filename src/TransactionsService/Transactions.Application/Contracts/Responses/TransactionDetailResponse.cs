@@ -18,13 +18,9 @@ namespace Transactions.Application.Contracts.Responses
             = new CardEntity();
         public decimal TransferAmount { get; set; }
             = decimal.Zero;
-        public TransactionStatus Status { get; set; }
-            = TransactionStatus.None;
-        public CurrencyId Currency { get; set; }
+        public CurrencyId SenderCurrency { get; set; }
             = CurrencyId.None;
-        public TransactionType Type { get; set; }
-            = TransactionType.None;
-        public TransationDirect Direct { get; set; }
-            = TransationDirect.None;
+        public CurrencyId ConsumerCurrency { get; set; }
+            = CurrencyId.None;
     }
 }

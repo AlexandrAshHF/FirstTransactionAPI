@@ -40,10 +40,9 @@ namespace Transactions.Application.Handlers.Transactions
                     Id = x.Id,
                     SenderNumber = x.SenderCard.Number,
                     ConsumerNumber = x.ConsumerCard.Number,
-                    Amount = x.TransferAmount,
-                    Status = x.Status,
-                    Currency = x.CurrencySender,
-                    Type = x.Type,
+                    Amount = x.SendAmount,
+                    SenderCurrency = x.CurrencySender,
+                    ConsumerCurrency = x.CurrencyConsumer,
                 }).ToList());
 
             return response;

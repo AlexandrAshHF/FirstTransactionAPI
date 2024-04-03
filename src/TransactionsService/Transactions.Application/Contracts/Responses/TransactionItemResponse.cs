@@ -8,9 +8,8 @@ namespace Transactions.Application.Contracts.Responses
         public Guid Id { get; set; }
         public string SenderNumber { get; set; }
         public string ConsumerNumber { get; set; }
-        public TransactionType Type { get; set; }
-        public CurrencyId Currency { get; set; }
-        public TransactionStatus Status { get; set; }
+        public CurrencyId ConsumerCurrency { get; set; }
+        public CurrencyId SenderCurrency { get; set; }
         public decimal Amount { get; set; }
     }
 }

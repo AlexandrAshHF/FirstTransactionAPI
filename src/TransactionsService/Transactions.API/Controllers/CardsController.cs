@@ -18,7 +18,7 @@ namespace Transactions.API.Controllers
         }
 
         [HttpGet("card/{id}")]
-        public async Task<IActionResult> GetCard(GetDetailCardQueryHandler handler, [FromQuery] Guid id)
+        public async Task<IActionResult> GetCard(GetDetailCardQueryHandler handler, [FromRoute] Guid id)
         {
             var result = await handler.HandleAsync(id);
 
@@ -43,7 +43,7 @@ namespace Transactions.API.Controllers
         }
 
         [HttpDelete("delete-card/{id}")]
-        public async Task<IActionResult> DeleteCard(DeleteCardCommandHandler handler, [FromQuery] Guid id)
+        public async Task<IActionResult> DeleteCard(DeleteCardCommandHandler handler, [FromRoute] Guid id)
         {
             var response = await handler.HandleAsync(id);
 

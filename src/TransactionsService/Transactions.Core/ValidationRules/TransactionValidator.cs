@@ -20,11 +20,6 @@ namespace Transactions.Core.ValidationRules
             RuleFor(x => x.Id).NotEmpty()
                 .NotNull()
                 .NotEqual(Guid.Empty);
-
-            RuleFor(x => x.Status).NotEmpty()
-                .NotNull()
-                .WithMessage("Tranasction status should be specified")
-                .WithName(nameof(TransactionEntity.Status));
         }
     }
 }

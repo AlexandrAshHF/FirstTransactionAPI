@@ -6,21 +6,18 @@ namespace Transactions.Core.Entities
     public class TransactionEntity
     {
         public TransactionEntity(Guid id, Guid senderCardId, CardEntity senderCard,
-            Guid consumerCardId, CardEntity consumerCard, decimal transferAmount,
-            TransactionStatus status, CurrencyId currencySender, CurrencyId currencyConsumer,
-            TransactionType type, TransationDirect direct, DateTime time)
+            Guid consumerCardId, CardEntity consumerCard, decimal sendAmount, decimal receiveAmount, 
+            CurrencyId currencySender, CurrencyId currencyConsumer, DateTime time)
         {
             Id = id;
             SenderCardId = senderCardId;
             SenderCard = senderCard;
             ConsumerCardId = consumerCardId;
             ConsumerCard = consumerCard;
-            TransferAmount = transferAmount;
-            Status = status;
+            SendAmount = sendAmount;
+            ReceiveAmount = receiveAmount;
             CurrencySender = currencySender;
             CurrencyConsumer = currencyConsumer;
-            Type = type;
-            Direct = direct;
             TimeOfCreate = time;
         }
         public TransactionEntity()
@@ -38,18 +35,14 @@ namespace Transactions.Core.Entities
             = Guid.Empty;
         public CardEntity ConsumerCard { get; private set; }
             = new CardEntity();
-        public decimal TransferAmount { get; private set; }
+        public decimal SendAmount { get; private set; }
             = decimal.Zero;
-        public TransactionStatus Status { get; private set; }
-            = TransactionStatus.None;
+        public decimal ReceiveAmount { get; private set; }
+            = decimal.Zero;
         public CurrencyId CurrencySender { get; private set; }
             = CurrencyId.None;
         public CurrencyId CurrencyConsumer { get; private set; }
             = CurrencyId.None;
-        public TransactionType Type { get; private set; }
-            = TransactionType.None;
-        public TransationDirect Direct { get; private set; }
-            = TransationDirect.None;
         public DateTime TimeOfCreate { get; private set; }
     }
 }
