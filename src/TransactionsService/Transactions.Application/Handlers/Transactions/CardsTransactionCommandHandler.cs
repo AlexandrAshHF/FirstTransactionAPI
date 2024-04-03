@@ -45,14 +45,14 @@ namespace Transactions.Application.Handlers.Transactions
                 TransactionEntity transaction = new TransactionEntity(Guid.NewGuid(), FirstCard.Id,
                     FirstCard, SecondCard.Id, SecondCard,
                     request.Amount, TransactionStatus.Success,
-                    request.Currency, TransactionType.CardToCard, TransationDirect.Send, DateTime.Now);
+                    request.Currency, request.Currency, TransactionType.CardToCard, TransationDirect.Send, DateTime.Now);
 
                 await _context.Transactions.AddAsync(transaction);
                 await _context.SaveChangesAsync();
             }
             else
             {
-                using var channel = GrpcChannel.ForAddress("*:9000");
+                using var channel = GrpcChannel.ForAddress("https://localhost:7096");
 
                 var client = new Exchange.ExchangeClient(channel);
                 CurrencyConvertResponse response = await client.ConvertCurrenciesAsync(new CurrencyConvertRequest
@@ -64,7 +64,7 @@ namespace Transactions.Application.Handlers.Transactions
                 
                 TransactionEntity transaction = new TransactionEntity(Guid.NewGuid(), FirstCard.Id,
                     FirstCard, SecondCard.Id, SecondCard,
-                    (decimal)response.ConvartationResult, TransactionStatus.Success,
+                    (decimal)response.ConvartationResult, TransactionStatus.Success, request.Currency,
                     (CurrencyId)response.ConvertationCurrency, TransactionType.CardToCard, TransationDirect.Send, DateTime.Now);
 
                 await _context.Transactions.AddAsync(transaction);

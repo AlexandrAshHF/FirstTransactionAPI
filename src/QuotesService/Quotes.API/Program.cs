@@ -41,7 +41,7 @@ namespace Quotes.API
                 return Results.Ok(result);
             });
 
-            app.MapGrpcService<ExchangeService>().RequireHost("*:9000");
+            app.MapGrpcService<ExchangeService>();
 
             app.Run();
         }

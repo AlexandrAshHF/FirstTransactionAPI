@@ -20,6 +20,7 @@ namespace Transactions.API
                 (options => options.UseSqlServer(connectionString, opth => opth.MigrationsAssembly("Transactions.Persistance")));
 
             builder.Services.AddCardHandlers();
+            builder.Services.AddTransactionHandlers();
 
             var app = builder.Build();
 

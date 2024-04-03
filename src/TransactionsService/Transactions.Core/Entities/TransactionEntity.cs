@@ -7,8 +7,8 @@ namespace Transactions.Core.Entities
     {
         public TransactionEntity(Guid id, Guid senderCardId, CardEntity senderCard,
             Guid consumerCardId, CardEntity consumerCard, decimal transferAmount,
-            TransactionStatus status, CurrencyId currency, TransactionType type,
-            TransationDirect direct, DateTime time)
+            TransactionStatus status, CurrencyId currencySender, CurrencyId currencyConsumer,
+            TransactionType type, TransationDirect direct, DateTime time)
         {
             Id = id;
             SenderCardId = senderCardId;
@@ -17,7 +17,8 @@ namespace Transactions.Core.Entities
             ConsumerCard = consumerCard;
             TransferAmount = transferAmount;
             Status = status;
-            Currency = currency;
+            CurrencySender = currencySender;
+            CurrencyConsumer = currencyConsumer;
             Type = type;
             Direct = direct;
             TimeOfCreate = time;
@@ -41,7 +42,9 @@ namespace Transactions.Core.Entities
             = decimal.Zero;
         public TransactionStatus Status { get; private set; }
             = TransactionStatus.None;
-        public CurrencyId Currency { get; private set; }
+        public CurrencyId CurrencySender { get; private set; }
+            = CurrencyId.None;
+        public CurrencyId CurrencyConsumer { get; private set; }
             = CurrencyId.None;
         public TransactionType Type { get; private set; }
             = TransactionType.None;

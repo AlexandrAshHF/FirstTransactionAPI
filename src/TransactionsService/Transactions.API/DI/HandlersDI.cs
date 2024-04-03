@@ -1,4 +1,5 @@
 ﻿using Transactions.Application.Handlers.Cards;
+using Transactions.Application.Handlers.Transactions;
 
 namespace Transactions.API.DI
 {
@@ -17,6 +18,10 @@ namespace Transactions.API.DI
         }
         public static IServiceCollection AddTransactionHandlers(this IServiceCollection serviceCollection)
         {
+            serviceCollection.AddScoped<CardsTransactionCommandHandler>();
+            serviceCollection.AddScoped<DetailTransactionQueryHandler>();
+            serviceCollection.AddScoped<UserTransactionsQueryHandler>();
+
             return serviceCollection;
         }
     }

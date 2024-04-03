@@ -92,7 +92,10 @@ namespace Transactions.Persistance.Migrations
                     b.Property<Guid>("ConsumerCardId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Currency")
+                    b.Property<int>("CurrencyConsumer")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CurrencySender")
                         .HasColumnType("int");
 
                     b.Property<int>("Direct")

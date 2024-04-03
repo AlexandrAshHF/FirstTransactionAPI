@@ -1,4 +1,5 @@
 ﻿using Grpc.Core;
+using Quotes.Application.Contracts.Responses;
 using Quotes.Application.Implementation;
 using Shared.Application.Protos;
 using Shared.Core.Enums;
@@ -16,7 +17,14 @@ namespace Quotes.Application.gRPC
         {
             var quotes = await _queryHandler.HandleAsync(null);
             var quoteConsume = quotes.First(x => x.Id == (CurrencyId)request.ConsumerCurrency);
-            var quoteSender = quotes.First(x => x.Id == (CurrencyId)request.SenderCurrency);
+            var quoteSender = quotes.FirstOrDefault(x => x.Id == (CurrencyId)request.SenderCurrency)
+                ?? new QuotesItemResponse
+                {
+                    Id = CurrencyId.BYN,
+                    Abbreviation = "BYN",
+                    Rate = 1.0m,
+                    Scale = 1,
+                };
 
             double bynAmount = (request.Amount * Convert.ToDouble(quoteSender.Rate)) / Convert.ToDouble(quoteSender.Scale); // define to second return
 

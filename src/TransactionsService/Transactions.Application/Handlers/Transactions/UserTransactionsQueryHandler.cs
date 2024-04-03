@@ -42,7 +42,7 @@ namespace Transactions.Application.Handlers.Transactions
                     ConsumerNumber = x.ConsumerCard.Number,
                     Amount = x.TransferAmount,
                     Status = x.Status,
-                    Currency = x.Currency,
+                    Currency = x.CurrencySender,
                     Type = x.Type,
                 }).ToList());
 

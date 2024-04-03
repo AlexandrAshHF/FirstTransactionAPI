@@ -26,7 +26,7 @@ namespace Transactions.Application.Handlers.Transactions
                 SenderCard = transaction.SenderCard,
                 ConsumerCard = transaction.ConsumerCard,
                 ConsumerCardId = transaction.ConsumerCardId,
-                Currency = transaction.Currency,
+                Currency = transaction.CurrencySender,
                 SenderCardId = transaction.SenderCardId,
                 Direct = transaction.Direct,
                 Status = transaction.Status,

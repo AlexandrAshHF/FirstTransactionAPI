@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -7,22 +6,26 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Transactions.Persistance.Migrations
 {
     /// <inheritdoc />
-    public partial class Updatecardandtransactions : Migration
+    public partial class UpdateTransactions : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropColumn(
+                name: "Currency",
+                table: "Transactions");
+
             migrationBuilder.AddColumn<int>(
-                name: "Direct",
+                name: "CurrencySender",
                 table: "Transactions",
                 nullable: false,
                 type: "int");
 
-            migrationBuilder.AddColumn<DateTime>(
-                name: "TimeOfCreate",
+            migrationBuilder.AddColumn<int>(
+                name: "CurrencyConsumer",
                 table: "Transactions",
                 nullable: false,
-                type: "datetime2");
+                type: "int");
         }
     }
 }

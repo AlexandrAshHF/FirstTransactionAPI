@@ -12,8 +12,8 @@ using Transactions.Persistance;
 namespace Transactions.Persistance.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240401092053_Update card and transactions")]
-    partial class Updatecardandtransactions
+    [Migration("20240403111139_UpdateTransactions")]
+    partial class UpdateTransactions
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -95,7 +95,10 @@ namespace Transactions.Persistance.Migrations
                     b.Property<Guid>("ConsumerCardId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Currency")
+                    b.Property<int>("CurrencyConsumer")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CurrencySender")
                         .HasColumnType("int");
 
                     b.Property<int>("Direct")
