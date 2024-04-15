@@ -5,6 +5,7 @@
 **/obj
 src/client/node_modules
 src/client/.pnp
+src/client/package-lock.json
 .pnp.js
 src/client/coverage
 

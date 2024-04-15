@@ -1,10 +1,23 @@
 import React, { useState } from "react";
 import classes from './styles/CardItem.module.css'
 
-function    CardItem({card, ...params})
+const currencyLabels = {
+    1: 'BYN',
+    431: 'USD',
+    451: 'EUR',
+    456: 'RUB',
+};
+
+function getCurrencyLabel(number) {
+    return currencyLabels[number] || 'NON';
+}
+
+function CardItem({card, ...params})
 {
-    let networkImg = card.paymentNetwork === 1 ? "./images/visa.svg" : "./images/mastercard.svg";
-    let selectedCur = useState(0);
+    let networkImg = card.network === 1 ? "./images/visa.svg" : "./images/mastercard.svg";
+    let [selectedCur, setSelectedCur] = useState(card.balanceAccounts[0].item1);
+    let [balance, setBalance] = useState(card.balanceAccounts[0].item2);
+
     return(
         <div className={classes.cardBlock} {...params}>
             <div className={classes.upBlock}>
@@ -12,24 +25,17 @@ function    CardItem({card, ...params})
                 <img alt="Payment network" src={networkImg}/>
             </div>
             <div className={classes.curBlock}>
-                <div className={classes.cur}>
-                    <label>BYN</label>
-                </div>
-                <div className={classes.cur}>
-                    <label>USD</label>
-                </div>
-                <div className={classes.cur}>
-                    <label>EUR</label>
-                </div>
-                <div className={classes.cur}>
-                    <label>RUB</label>
-                </div>
+                {card.balanceAccounts.map((currency) => (
+                    <div className={currency.item1 != selectedCur ? classes.cur : classes.selectedCur}>
+                        <label>{getCurrencyLabel(currency.item1)}</label>
+                    </div>
+                ))}
             </div>
             <div className={classes.bottomBlock}>
-                <label>ALEXANDR ASHEVSKY</label>
-                <label>01/26</label>
+                <label>{card.holderName}</label>
+                <label>{card.validityDate}</label>
             </div>
-            <label>1000,24</label>
+            <label>{balance}</label>
         </div>
     );
 }
